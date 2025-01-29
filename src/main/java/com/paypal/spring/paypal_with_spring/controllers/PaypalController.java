@@ -26,7 +26,7 @@ public class PaypalController {
         return "index";
     }
 
-    @PostMapping("/payment/create")
+    @PostMapping("/payment/create") 
     public RedirectView createPayment(
             @RequestParam("amount") String amount,
             @RequestParam("method") String method,
