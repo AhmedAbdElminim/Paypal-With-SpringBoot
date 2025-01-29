@@ -1,28 +1,187 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
+    <title>Payment Cancelled</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
 
-    <title>Paypal With Spring Boot</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+        body {
+            background: linear-gradient(to right, #2c3e50, #4ca1af);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .cancel-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem 1.5rem; /* Reduced padding */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 90%;
+            max-width: 500px;
+            animation: fadeScale 0.6s ease-out;
+            text-align: center;
+        }
 
+        @keyframes fadeScale {
+            0% {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .cancel-icon {
+            width: 80px; /* Reduced size */
+            height: 80px; /* Reduced size */
+            margin: 0 auto 1rem; /* Reduced margin */
+            position: relative;
+            border: 4px solid red;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: borderPulse 2s infinite;
+        }
+        
+        .cancel-icon::before {
+            content: '!';
+            font-size: 3rem; /* Reduced size */
+            color: red;
+            font-weight: bold;
+            animation: bounce 1s infinite;
+        }
+        
+        @keyframes borderPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        h1 {
+            font-size: 1.5rem; /* Reduced size */
+            font-weight: 600;
+            margin-bottom: 0.5rem; /* Reduced margin */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .message {
+            font-size: 1rem; /* Reduced size */
+            opacity: 0.9;
+            margin-bottom: 1rem; /* Reduced margin */
+            line-height: 1.4;
+        }
+        
+        .btn-home {
+            background: white;
+            color: #ff6b6b;
+            border: none;
+            padding: 0.75rem 2rem; /* Reduced padding */
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 1rem; /* Reduced margin */
+            min-width: 180px; /* Reduced width */
+        }
+        
+        .btn-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            color: #ff6b6b;
+            background: #f8f9fa;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin-top: 0.5rem; /* Reduced margin */
+        }
+        
+        .tips-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1rem; /* Reduced padding */
+            margin: 1rem auto; /* Reduced margin */
+            text-align: left;
+            max-width: 400px;
+            font-size: 0.9rem; /* Reduced font size */
+        }
+        
+        .tip-item {
+            margin-bottom: 0.5rem; /* Reduced margin */
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .tip-item::before {
+            content: '•';
+            font-size: 1.2rem; /* Reduced size */
+        }
+        
+        .tip-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        @media (max-width: 576px) {
+            .cancel-container {
+                padding: 1.5rem 1rem;
+            }
+            
+            .btn-home {
+                width: 80%;
+                padding: 0.6rem 1.2rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
-    <div class="container">
-        <h1 class="text-center mt-5">Sorry your Payment Transaction Canceled Try Again Later!!</h1>
-
-        <div class="d-flex justify-content-center mt-5">
-
-            <a href="/" class="btn btn-primary">Back to Home</a>
+    <div class="cancel-container">
+        <div class="cancel-icon"></div>
+        <h1>Payment Transaction Cancelled</h1>
+        <p class="message">No worries! Your payment wasn't processed and no charges were made.</p>
+        
+        <div class="tips-container">
+            <div class="tip-item">Please verify your payment information</div>
+            <div class="tip-item">Check your account balance</div>
+            <div class="tip-item">Ensure a stable internet connection</div>
         </div>
-
+        
+        <div class="button-container">
+            <a href="/" class="btn-home">Back to Home</a>
+        </div>
     </div>
 </body>
-
 </html>
