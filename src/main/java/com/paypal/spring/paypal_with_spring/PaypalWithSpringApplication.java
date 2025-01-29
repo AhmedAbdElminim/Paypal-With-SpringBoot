@@ -1,4 +1,4 @@
-package com.paypal.spring.paypal_with_spring.controllers;
+package com.paypal.spring.paypal_with_spring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

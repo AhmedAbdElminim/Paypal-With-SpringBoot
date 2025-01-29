@@ -1,4 +1,4 @@
-package com.paypal.spring.paypal_with_spring;
+package com.paypal.spring.paypal_with_spring.controllers;
 
 import org.springframework.stereotype.Controller;
 
@@ -57,7 +57,7 @@ public class PaypalController {
 
     @GetMapping("/payment/success")
     public String paymentSuccess(@RequestParam("paymentId") String paymentId,
-            @RequestParam("payertId") String payertId) {
+            @RequestParam("PayerID") String payertId) {
         try {
             Payment payment = service.executePayment(paymentId, payertId);
 
